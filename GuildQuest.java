@@ -1,10 +1,4 @@
-import java.awt.*;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.List;
-import javax.swing.*;
-import java.util.Random;
 
 class Inventory{
     String inventoryID;
@@ -99,6 +93,11 @@ class Campaign {
         this.host = host;
     }
 
+    @Override
+    public String toString(){
+        return this.name;
+    }
+
 }
 
 
@@ -130,198 +129,6 @@ class User{
     }
 }
 
-class UserFrame extends JFrame{
-    private User user;
-    UserFrame(User user){
-        //Frame setting
-        this.user = user;
-        setTitle("GuildQuest");
-        setSize(720,720);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(null);
-
-        JButton addCampaign = new JButton("Add Campaign");
-        JButton deleteCampaign = new JButton("Delete Campaign");
-        JButton updateCampaign = new JButton("Update Campaign");
-
-        addCampaign.addActionListener(e -> {
-            AddCampaignDialog dialog = new AddCampaignDialog(this, this.user);
-            dialog.setVisible(true);
-            Campaign campaign = dialog.getCampaign();
-            if (campaign != null){
-                user.addCampaign(campaign);
-            }
-        });
-
-        deleteCampaign.addActionListener(e -> {
-            System.out.println(user.campaigns);
-            DefaultListModel<Campaign> campaignModel = new DefaultListModel<>();
-            JList<Campaign> campaignList = new JList<>(campaignModel);
-            for (Campaign c : user.campaigns) {
-                campaignModel.addElement(c);
-            }
-            campaignList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-            RemoveCampaign dialog = new RemoveCampaign(this,campaignList);
-            dialog.setVisible(true);
-            String campaignID = dialog.getCampaignID();
-            if (campaignID != null) {
-                user.removeCampaign(campaignID);
-            }
-
-        });
-
-        JPanel panel = new JPanel(new GridBagLayout());
-        panel.setBackground(Color.BLACK);
-        GridBagConstraints gbc = new GridBagConstraints();
-
-        gbc.insets = new Insets(5, 5, 5, 5); // spacing
-        gbc.anchor = GridBagConstraints.CENTER;
-
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        panel.add(new JLabel("Add Campaign"), gbc);
-        gbc.gridx = 1;
-        panel.add(addCampaign, gbc);
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        panel.add(new JLabel("Delete Campaign"), gbc);
-        gbc.gridx = 1;
-        panel.add(deleteCampaign, gbc);
-        add(panel);
-    }
-}
-
-class RemoveCampaign extends JDialog {
-    private Campaign campaign;
-
-    RemoveCampaign(JFrame parent, JList<Campaign> campaignList) {
-
-        super(parent, "Remove Campaign", true);
-        setSize(400, 300);
-        setLocationRelativeTo(parent);
-
-        JButton submit = new JButton("Remove");
-
-        JTextField campaignName = new JTextField(20);
-        campaignList.addListSelectionListener(e -> {
-            if (!e.getValueIsAdjusting()) {
-                Campaign selected = campaignList.getSelectedValue();
-                if (selected != null) {
-                    campaign = selected;
-                }
-            }
-        });
-
-        submit.addActionListener(e -> {
-            dispose();
-        });
-
-        JPanel panel = new JPanel();
-        panel.add(new JScrollPane(campaignList), BorderLayout.CENTER);
-        panel.add(submit);
-        add(panel);
-
-    }
-
-    String getCampaignID() {
-        return campaign.campaignID;
-    }
-}
-
-class AddCampaignDialog extends JDialog {
-    private Campaign campaign;
-
-    AddCampaignDialog(JFrame parent, User user) {
-
-        super(parent, "Add Campaign", true);
-        setSize(400, 300);
-        setLocationRelativeTo(parent);
-
-        JButton submit = new JButton("Submit");
-
-        JTextField campaignName = new JTextField(20);
-
-        submit.addActionListener(e -> {
-            Random rand = new Random();
-            int randomNum = rand.nextInt(100000);
-            campaign = new Campaign(campaignName.getText(), String.valueOf(randomNum), user);
-            dispose();
-        });
-
-        //GUI
-        JPanel panel = new JPanel(new GridBagLayout());
-        panel.setBackground(Color.BLACK);
-        GridBagConstraints gbc = new GridBagConstraints();
-
-        gbc.insets = new Insets(5, 5, 5, 5); // spacing
-        gbc.anchor = GridBagConstraints.CENTER;
-
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        panel.add(new JLabel("Campaign Name"), gbc);
-        gbc.gridx = 1;
-        panel.add(campaignName, gbc);
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        panel.add(submit, gbc);
-        add(panel);
-    }
-
-    Campaign getCampaign() {
-        return campaign;
-    }
-}
-
-class LoginFrame extends JFrame{
-    LoginFrame(){
-
-        //Frame setting
-        setTitle("Login");
-        setSize(720,720);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(null);
-
-        //GUI Variables
-        JTextField userName = new JTextField(20);
-        JPasswordField password = new JPasswordField(20);
-        JButton submit = new JButton("Submit");
-
-        submit.addActionListener(e -> {
-            Random rand = new Random();
-            int randomNum = rand.nextInt(100000);
-            User user = new User(randomNum, userName.getText());
-            new UserFrame(user).setVisible(true);
-
-            dispose();
-        });
-
-        //GUI
-        JPanel panel = new JPanel(new GridBagLayout());
-        panel.setBackground(Color.BLACK);
-        GridBagConstraints gbc = new GridBagConstraints();
-
-        gbc.insets = new Insets(5, 5, 5, 5); // spacing
-        gbc.anchor = GridBagConstraints.CENTER;
-
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        panel.add(new JLabel("Username:"), gbc);
-        gbc.gridx = 1;
-        panel.add(userName, gbc);
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        panel.add(new JLabel("Password:"), gbc);
-        gbc.gridx = 1;
-        panel.add(password, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        gbc.gridwidth = 2;
-        panel.add(submit, gbc);
-        add(panel);
-
-    }
-}
 
 public class GuildQuest {
     public static void main(String[] args) {
