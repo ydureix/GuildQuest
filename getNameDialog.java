@@ -2,9 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 
 
-class UpdateCampaignDialog extends JDialog {
-    String campaignName;
-    UpdateCampaignDialog(JFrame parent) {
+class getNameDialog extends JDialog {
+    String name;
+    getNameDialog(JFrame parent) {
 
         super(parent, "Update Campaign", true);
 
@@ -13,10 +13,10 @@ class UpdateCampaignDialog extends JDialog {
 
         JButton submit = new JButton("Submit");
 
-        JTextField campaignName = new JTextField(20);
+        JTextField name = new JTextField(20);
 
         submit.addActionListener(e -> {
-            this.campaignName = campaignName.getText();
+            this.name = name.getText();
             dispose();
         });
 
@@ -32,14 +32,14 @@ class UpdateCampaignDialog extends JDialog {
         gbc.gridy = 0;
         panel.add(new JLabel("Campaign Name"), gbc);
         gbc.gridx = 1;
-        panel.add(campaignName, gbc);
+        panel.add(name, gbc);
         gbc.gridx = 0;
         gbc.gridy = 1;
         panel.add(submit, gbc);
         add(panel);
     }
 
-    String getCampaignName() {
-        return this.campaignName;
+    String getNewName() {
+        return this.name;
     }
 }

@@ -79,6 +79,11 @@ class QuestEvent{
         this.realm = realm;
     }
 
+    @Override
+    public String toString(){
+        return this.name;
+    }
+
 }
 
 
@@ -109,6 +114,22 @@ class Campaign {
 
     void addQuestEvent(QuestEvent event){
         questEvents.add(event);
+    }
+
+    void deleteQuestEvent(String eventID){
+        this.questEvents.removeIf(e -> e.eventID.equals(eventID));
+    }
+
+    void updateEvent(String eventID, String newEventName){
+        QuestEvent found = questEvents.stream()
+                .filter(e -> e.eventID.equals(eventID))
+                .findFirst()
+                .orElse(null);
+
+        if (found != null) {
+            found.name = newEventName;
+        }
+
     }
 
 }

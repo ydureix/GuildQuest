@@ -53,9 +53,9 @@ class UserFrame extends JFrame {
         //Update Campaign Dialog
         updateCampaign.addActionListener(e -> {
             String campaignID = getCampaignID();
-            UpdateCampaignDialog dialog = new UpdateCampaignDialog(this);
+            getNameDialog dialog = new getNameDialog(this);
             dialog.setVisible(true);
-            String changedName = dialog.getCampaignName();
+            String changedName = dialog.getNewName();
             if (changedName != null && campaignID != null) {
                 user.updateCampaign(campaignID, changedName);
             }
