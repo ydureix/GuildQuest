@@ -1,3 +1,4 @@
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 class Inventory{
@@ -8,7 +9,6 @@ class Inventory{
         this.character = character;
     }
 }
-
 
 
 class Character{
@@ -37,6 +37,7 @@ class WorldClock{
         this.hours = hours;
         this.minutes = minutes;
     }
+
 }
 
 class Realm{
@@ -77,6 +78,7 @@ class QuestEvent{
         this.startTime = startTime;
         this.realm = realm;
     }
+
 }
 
 
@@ -87,15 +89,26 @@ class Campaign {
     ArrayList<QuestEvent> questEvents;
     WorldClock createdAt;
 
+
     Campaign(String campaignID, String name, User host) {
         this.campaignID = campaignID;
         this.name = name;
         this.host = host;
+        this.questEvents = new ArrayList<QuestEvent>();
+        LocalDateTime now = LocalDateTime.now();
+        int days = (int) now.toLocalDate().toEpochDay();
+        int hours = now.getHour();
+        int minutes = now.getMinute();
+        createdAt = new WorldClock(days, hours, minutes);
     }
 
     @Override
     public String toString(){
         return this.name;
+    }
+
+    void addQuestEvent(QuestEvent event){
+        questEvents.add(event);
     }
 
 }
@@ -124,7 +137,15 @@ class User{
         this.campaigns.removeIf(c -> c.campaignID.equals(campaignID));
     }
 
-    void updateCampaign(String campaignID){
+    void updateCampaign(String campaignID, String newCampaignName){
+        Campaign found = campaigns.stream()
+                .filter(c -> c.campaignID.equals(campaignID))
+                .findFirst()
+                .orElse(null);
+
+        if (found != null) {
+            found.name = newCampaignName;
+        }
 
     }
 }

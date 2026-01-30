@@ -1,12 +1,13 @@
 import javax.swing.*;
 import java.awt.*;
 
+
 class UpdateCampaignDialog extends JDialog {
-    private Campaign campaign;
+    String campaignName;
+    UpdateCampaignDialog(JFrame parent) {
 
-    UpdateCampaignDialog(JFrame parent, User user) {
+        super(parent, "Update Campaign", true);
 
-        super(parent, "Add Campaign", true);
         setSize(400, 300);
         setLocationRelativeTo(parent);
 
@@ -15,6 +16,7 @@ class UpdateCampaignDialog extends JDialog {
         JTextField campaignName = new JTextField(20);
 
         submit.addActionListener(e -> {
+            this.campaignName = campaignName.getText();
             dispose();
         });
 
@@ -28,7 +30,7 @@ class UpdateCampaignDialog extends JDialog {
 
         gbc.gridx = 0;
         gbc.gridy = 0;
-        panel.add(new JLabel("Update Campaign"), gbc);
+        panel.add(new JLabel("Campaign Name"), gbc);
         gbc.gridx = 1;
         panel.add(campaignName, gbc);
         gbc.gridx = 0;
@@ -37,7 +39,7 @@ class UpdateCampaignDialog extends JDialog {
         add(panel);
     }
 
-    Campaign getCampaign() {
-        return campaign;
+    String getCampaignName() {
+        return this.campaignName;
     }
 }

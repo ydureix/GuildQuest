@@ -1,16 +1,16 @@
 import javax.swing.*;
 import java.awt.*;
 
-class RemoveCampaign extends JDialog {
+class SelectCampaign extends JDialog {
     private Campaign campaign;
 
-    RemoveCampaign(JFrame parent, JList<Campaign> campaignList) {
+    SelectCampaign(JFrame parent, JList<Campaign> campaignList) {
 
-        super(parent, "Remove Campaign", true);
+        super(parent, "Select Campaign", true);
         setSize(400, 300);
         setLocationRelativeTo(parent);
 
-        JButton submit = new JButton("Remove");
+        JButton submit = new JButton("Select");
 
         campaignList.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
