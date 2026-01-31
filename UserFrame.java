@@ -30,6 +30,7 @@ class UserFrame extends JFrame {
         JButton deleteCampaign = new JButton("Delete Campaign");
         JButton updateCampaign = new JButton("Update Campaign");
         JButton viewCampaign = new JButton("View Campaign");
+        JButton createCharacter = new JButton("Create Character");
 
         //Add Campaign Dialog
         addCampaign.addActionListener(e -> {
@@ -73,6 +74,15 @@ class UserFrame extends JFrame {
             }
         });
 
+        //Create Character Dialog
+        createCharacter.addActionListener(e -> {
+            CreateCharacterDialog dialog = new CreateCharacterDialog(this, user);
+            dialog.setVisible(true);
+            Character character = dialog.getCharacter();
+            if (character != null){
+                user.addCharacter(character);
+            }
+        });
 
         //Panel
         JPanel panel = new JPanel(new GridBagLayout());
@@ -102,6 +112,11 @@ class UserFrame extends JFrame {
         panel.add(new JLabel("View Campaign"), gbc);
         gbc.gridx = 1;
         panel.add(viewCampaign, gbc);
+        gbc.gridy = 4;
+        gbc.gridx = 0;
+        panel.add(new JLabel("Create Character"), gbc);
+        gbc.gridx = 1;
+        panel.add(createCharacter, gbc);
         add(panel);
     }
 }

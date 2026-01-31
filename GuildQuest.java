@@ -162,6 +162,7 @@ class User{
         this.userID = userID;
         this.username = username;
         this.campaigns = new ArrayList<Campaign>();
+        this.characters = new ArrayList<Character>();
     }
 
     void addCampaign(Campaign campaign){
@@ -182,6 +183,10 @@ class User{
             found.name = newCampaignName;
         }
 
+    }
+
+    void addCharacter(Character character){
+        this.characters.add(character);
     }
 }
 
