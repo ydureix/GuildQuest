@@ -1,5 +1,6 @@
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 class Inventory{
     String inventoryID;
@@ -36,6 +37,18 @@ class WorldClock{
         this.days = days;
         this.hours = hours;
         this.minutes = minutes;
+    }
+
+    void printCurrentTime(){
+        LocalDateTime now = LocalDateTime.now();
+        this.days = (int) now.toLocalDate().toEpochDay();
+        this.hours = now.getHour();
+        this.minutes = now.getMinute();
+    }
+
+    @Override
+    public String toString(){
+        return String.format("%s, %s:%s", days, hours, minutes);
     }
 
 }
@@ -83,6 +96,7 @@ class QuestEvent{
     public String toString(){
         return this.name;
     }
+
 
 }
 
