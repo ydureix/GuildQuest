@@ -1,0 +1,1 @@
+This is a prototype implementation of GuildQuest. To run the application compile GuildQuest.java on any JVM. There will be a simple GUI that you can use to perform actions.
