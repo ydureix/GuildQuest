@@ -18,6 +18,18 @@ class UserFrame extends JFrame {
         return dialog.getCampaignID();
     }
 
+    String getCharacterID(){
+        DefaultListModel<Character> characterModel = new DefaultListModel<>();
+        JList<Character> characterList = new JList<>(characterModel);
+        for (Character c : user.characters) {
+            characterModel.addElement(c);
+        }
+        characterList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        SelectCharacter dialog = new SelectCharacter(this, characterList);
+        dialog.setVisible(true);
+        return dialog.getCharacterID();
+    }
+
     UserFrame(User user) {
         //Frame setting
         this.user = user;
@@ -31,6 +43,7 @@ class UserFrame extends JFrame {
         JButton updateCampaign = new JButton("Update Campaign");
         JButton viewCampaign = new JButton("View Campaign");
         JButton createCharacter = new JButton("Create Character");
+        JButton viewCharacter = new JButton("View Characters");
 
         //Add Campaign Dialog
         addCampaign.addActionListener(e -> {
@@ -82,6 +95,19 @@ class UserFrame extends JFrame {
             if (character != null){
                 user.addCharacter(character);
             }
+            System.out.println(user.characters);
+        });
+
+        //View Character
+        viewCharacter.addActionListener(e -> {
+            String characterID = getCharacterID();
+            Character found = user.characters.stream()
+                    .filter(c -> c.characterID.equals(characterID))
+                    .findFirst()
+                    .orElse(null);
+            if (found != null) {
+                new CharacterFrame(found).setVisible(true);
+            }
         });
 
         //Panel
@@ -89,7 +115,7 @@ class UserFrame extends JFrame {
         panel.setBackground(Color.BLACK);
         GridBagConstraints gbc = new GridBagConstraints();
 
-        gbc.insets = new Insets(5, 5, 5, 5); // spacing
+        gbc.insets = new Insets(6, 6, 6, 6); // spacing
         gbc.anchor = GridBagConstraints.CENTER;
 
         gbc.gridx = 0;
@@ -117,6 +143,11 @@ class UserFrame extends JFrame {
         panel.add(new JLabel("Create Character"), gbc);
         gbc.gridx = 1;
         panel.add(createCharacter, gbc);
+        gbc.gridy = 5;
+        gbc.gridx = 0;
+        panel.add(new JLabel("View Characters"), gbc);
+        gbc.gridx = 1;
+        panel.add(viewCharacter, gbc);
         add(panel);
     }
 }

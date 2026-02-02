@@ -26,6 +26,11 @@ class Character{
         this.characterClass = characterClass;
         this.level = level;
     }
+
+    @Override
+    public String toString(){
+        return this.name;
+    }
 }
 
 class WorldClock{
