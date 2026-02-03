@@ -1,13 +1,38 @@
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.stream.Collectors;
+import java.util.Random;
 
 class Inventory{
     String inventoryID;
     Character character;
+    ArrayList<Item> items;
     Inventory(String inventoryID, Character character){
         this.inventoryID = inventoryID;
         this.character = character;
+        this.items = new ArrayList<Item>();
+    }
+
+    void addItem(Item item){
+        items.add(item);
+    }
+
+    void removeItem(Item item){
+        items.remove(item);
+    }
+}
+
+class Item{
+    String name;
+    String rarity;
+
+    Item(String name, String rarity){
+        this.name = name;
+        this.rarity = rarity;
+    }
+
+    @Override
+    public String toString(){
+        return this.name;
     }
 }
 
@@ -25,6 +50,9 @@ class Character{
         this.name = name;
         this.characterClass = characterClass;
         this.level = level;
+        Random rand = new Random();
+        int randomNum = rand.nextInt(100000);
+        inventory = new Inventory(String.valueOf(randomNum), this);
     }
 
     @Override
