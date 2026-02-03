@@ -84,7 +84,7 @@ class CampaignFrame extends JFrame {
 
         gbc.gridx = 0;
         gbc.gridy = 0;
-        panel.add(new JLabel("Add Campaign"), gbc);
+        panel.add(new JLabel("Add Quest Event"), gbc);
         gbc.gridx = 1;
         panel.add(addEvent, gbc);
         gbc.gridx = 0;
@@ -94,7 +94,7 @@ class CampaignFrame extends JFrame {
         panel.add(deleteEvent, gbc);
         gbc.gridy = 2;
         gbc.gridx = 0;
-        panel.add(new JLabel("Update Campaign"), gbc);
+        panel.add(new JLabel("Update Event"), gbc);
         gbc.gridx = 1;
         panel.add(updateEvent, gbc);
         gbc.gridy = 3;

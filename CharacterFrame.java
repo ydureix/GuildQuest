@@ -15,6 +15,12 @@ class CharacterFrame extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
 
+        JButton viewInventory = new JButton("Select");
+
+        //View Inventory
+        viewInventory.addActionListener(e ->{
+
+        });
 
         //Panel
         JPanel panel = new JPanel(new GridBagLayout());
@@ -28,12 +34,12 @@ class CharacterFrame extends JFrame {
         gbc.gridy = 0;
         panel.add(new JLabel("Name"), gbc);
         gbc.gridx = 1;
-        panel.add(new JLabel(character.name), gbc);
+        panel.add(new JLabel(this.character.name), gbc);
         gbc.gridx = 0;
         gbc.gridy = 1;
         panel.add(new JLabel("Class"), gbc);
         gbc.gridx = 1;
-        panel.add(new JLabel(character.characterClass), gbc);
+        panel.add(new JLabel(this.character.characterClass), gbc);
         add(panel);
     }
 }

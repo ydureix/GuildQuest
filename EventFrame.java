@@ -25,8 +25,20 @@ class EventFrame extends JFrame {
 
         gbc.gridx = 0;
         gbc.gridy = 0;
-        this.event.startTime.printCurrentTime();
+        panel.add(new JLabel("World Time"), gbc);
+        gbc.gridx = 1;
+        this.event.startTime.printCurrentTime(); //Set time to current World Time
         panel.add(new JLabel(this.event.startTime.toString()), gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        panel.add(new JLabel("Realm Name"), gbc);
+        gbc.gridx = 1;
+        panel.add(new JLabel(this.event.realm.name), gbc);
+        gbc.gridy = 2;
+        gbc.gridx = 0;
+        panel.add(new JLabel("Realm ID"), gbc);
+        gbc.gridx = 1;
+        panel.add(new JLabel(this.event.realm.realmID), gbc);
         add(panel);
     }
 }
