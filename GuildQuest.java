@@ -61,27 +61,32 @@ class Character{
     }
 }
 
+//World Clock Singleton
 class WorldClock{
-    int days;
-    int hours;
-    int minutes;
+    private int days;
+    private int hours;
+    private int minutes;
 
-    WorldClock(int days, int hours, int minutes){
-        this.days = days;
-        this.hours = hours;
-        this.minutes = minutes;
+    private static WorldClock INSTANCE = new WorldClock();
+
+    private WorldClock(){
+        updateCurrentTime();
     }
 
-    void printCurrentTime(){
+    void updateCurrentTime(){
         LocalDateTime now = LocalDateTime.now();
-        this.days = (int) now.toLocalDate().toEpochDay();
+        this.days = now.getDayOfMonth();
         this.hours = now.getHour();
         this.minutes = now.getMinute();
     }
 
-    @Override
-    public String toString(){
-        return String.format("%s, %s:%s", days, hours, minutes);
+    String getCurrentTime(){
+        updateCurrentTime();
+        return String.format("Day: %s Hours: %d Minutes: %d", this.days, this.hours, this.minutes);
+    }
+
+    public static WorldClock getInstance(){
+        return INSTANCE;
     }
 
 }
@@ -113,15 +118,16 @@ class LocalTimeRule{
 
 class QuestEvent{
     String eventID;
-    WorldClock startTime;
-    WorldClock endTime;
+    String startTime;
+    String endTime;
     String name;
     Realm realm;
     String description;
-    QuestEvent(String eventID, String name, WorldClock startTime, Realm realm){
+    QuestEvent(String eventID, String name, Realm realm){
+        WorldClock clock = WorldClock.getInstance();
         this.eventID = eventID;
         this.name = name;
-        this.startTime = startTime;
+        this.startTime = clock.getCurrentTime();
         this.realm = realm;
     }
 
@@ -139,7 +145,7 @@ class Campaign {
     String name;
     User host;
     ArrayList<QuestEvent> questEvents;
-    WorldClock createdAt;
+    LocalDateTime createdAt;
 
 
     Campaign(String campaignID, String name, User host) {
@@ -147,11 +153,7 @@ class Campaign {
         this.name = name;
         this.host = host;
         this.questEvents = new ArrayList<QuestEvent>();
-        LocalDateTime now = LocalDateTime.now();
-        int days = (int) now.toLocalDate().toEpochDay();
-        int hours = now.getHour();
-        int minutes = now.getMinute();
-        createdAt = new WorldClock(days, hours, minutes);
+        createdAt = LocalDateTime.now();
     }
 
     @Override

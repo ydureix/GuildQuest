@@ -18,7 +18,7 @@ class AddEventDialog extends JDialog {
         submit.addActionListener(e -> {
             Random rand = new Random();
             int randomNum = rand.nextInt(100000);
-            event = new QuestEvent(String.valueOf(randomNum), eventName.getText(), campaign.createdAt, new Realm(String.valueOf(randomNum), eventName.getText()));
+            event = new QuestEvent(String.valueOf(randomNum), eventName.getText(), new Realm(String.valueOf(randomNum), eventName.getText()));
             dispose();
         });
 
