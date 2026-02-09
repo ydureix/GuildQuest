@@ -38,6 +38,11 @@ class EventFrame extends JFrame {
         panel.add(new JLabel("Realm ID"), gbc);
         gbc.gridx = 1;
         panel.add(new JLabel(this.event.getRealm().getRealmID()), gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        panel.add(new JLabel("Realm Local Time Rule"),gbc);
+        gbc.gridx = 1;
+        panel.add(new JLabel(this.event.getRealm().getLocalTime()),gbc);
         add(panel);
     }
 }

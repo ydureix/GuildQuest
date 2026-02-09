@@ -127,11 +127,17 @@ class Realm{
     private String name;
     private String description;
     private String mapId;
-    private LocalTimeRule localTimeRule;
+    private int offsetDays;
+    private int offsetHours;
+    private int offsetMinutes;
 
-    Realm(String realmID, String name){
+
+    Realm(String realmID, String name, int offsetDays, int offsetHours, int offsetMinutes){
         this.realmID = realmID;
         this.name = name;
+        this.offsetDays = offsetDays;
+        this.offsetHours = offsetHours;
+        this.offsetMinutes = offsetMinutes;
     }
 
     public String getRealmID(){
@@ -146,22 +152,12 @@ class Realm{
     public String getMapId(){
         return mapId;
     }
-    public LocalTimeRule getLocalTimeRule(){
-        return localTimeRule;
-    };
-}
 
-class LocalTimeRule{
-    int offsetDays;
-    int offsetHours;
-    int offsetMinutes;
-
-    LocalTimeRule(int offsetDays, int offsetHours, int offsetMinutes){
-        this.offsetDays = offsetDays;
-        this.offsetHours = offsetHours;
-        this.offsetMinutes = offsetMinutes;
+    public String getLocalTime(){
+        return String.format("OffsetDays: %d, OffsetHours: %d, OffsetMinutes: %d", this.offsetDays, this.offsetHours, this.offsetMinutes);
     }
 }
+
 
 class QuestEvent{
     private String eventID;
@@ -210,7 +206,7 @@ class QuestEvent{
 }
 
 
-class userCreate{
+class userFactory{
     public static Character createCharacter(String characterID, String name, String characterClass, int level){
         return new Character(characterID, name, characterClass, level);
     }
