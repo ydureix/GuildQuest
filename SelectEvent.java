@@ -34,7 +34,7 @@ class SelectEvent extends JDialog {
 
     String getQuestEventID() {
         if (QuestEvent != null) {
-            return QuestEvent.eventID;
+            return QuestEvent.getEventID();
         } else {
             return null;
         }

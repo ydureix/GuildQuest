@@ -9,7 +9,7 @@ class CharacterFrame extends JFrame {
     Item getItem(){
         DefaultListModel<Item> itemModel = new DefaultListModel<>();
         JList<Item> itemList = new JList<>(itemModel);
-        for (Item i : character.inventory.items) {
+        for (Item i : character.getInventory().items) {
             itemModel.addElement(i);
         }
         itemList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -44,14 +44,14 @@ class CharacterFrame extends JFrame {
             dialog.setVisible(true);
             Item item = dialog.getItem();
             if (item != null) {
-                character.inventory.addItem(item);
+                character.getInventory().addItem(item);
             }
         });
 
         //Remove item
         removeItem.addActionListener(e ->{
             Item item = getItem();
-            character.inventory.removeItem(item);
+            character.getInventory().removeItem(item);
         });
 
 
@@ -67,12 +67,12 @@ class CharacterFrame extends JFrame {
         gbc.gridy = 0;
         panel.add(new JLabel("Name"), gbc);
         gbc.gridx = 1;
-        panel.add(new JLabel(this.character.name), gbc);
+        panel.add(new JLabel(this.character.getCharacterName()), gbc);
         gbc.gridx = 0;
         gbc.gridy = 1;
         panel.add(new JLabel("Class"), gbc);
         gbc.gridx = 1;
-        panel.add(new JLabel(this.character.characterClass), gbc);
+        panel.add(new JLabel(this.character.getCharacterClass()), gbc);
         gbc.gridx = 0;
         gbc.gridy = 2;
         panel.add(new JLabel("Add item"), gbc);

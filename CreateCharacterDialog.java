@@ -21,7 +21,7 @@ class CreateCharacterDialog extends JDialog {
         submit.addActionListener(e -> {
             Random rand = new Random();
             int randomNum = rand.nextInt(100000);
-            this.character = new Character(String.valueOf(randomNum), characterName.getText(), (String) selectedClass.getSelectedItem(), 1);
+            this.character = userCreate.createCharacter(String.valueOf(randomNum), characterName.getText(), (String) selectedClass.getSelectedItem(), 1);
             dispose();
         });
 

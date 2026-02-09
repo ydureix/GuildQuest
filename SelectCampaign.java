@@ -34,7 +34,7 @@ class SelectCampaign extends JDialog {
 
     String getCampaignID() {
         if (campaign != null) {
-            return campaign.campaignID;
+            return campaign.getCampaignID();
         } else {
             return null;
         }

@@ -9,7 +9,7 @@ class UserFrame extends JFrame {
     String getCampaignID(){
         DefaultListModel<Campaign> campaignModel = new DefaultListModel<>();
         JList<Campaign> campaignList = new JList<>(campaignModel);
-        for (Campaign c : user.campaigns) {
+        for (Campaign c : user.getCampaigns()) {
             campaignModel.addElement(c);
         }
         campaignList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -21,7 +21,7 @@ class UserFrame extends JFrame {
     String getCharacterID(){
         DefaultListModel<Character> characterModel = new DefaultListModel<>();
         JList<Character> characterList = new JList<>(characterModel);
-        for (Character c : user.characters) {
+        for (Character c : user.getCharacters()) {
             characterModel.addElement(c);
         }
         characterList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -78,8 +78,8 @@ class UserFrame extends JFrame {
         //Select Campaign Frame
         viewCampaign.addActionListener(e ->{
             String campaignID = getCampaignID();
-            Campaign found = user.campaigns.stream()
-                    .filter(c -> c.campaignID.equals(campaignID))
+            Campaign found = user.getCampaigns().stream()
+                    .filter(c -> c.getCampaignID().equals(campaignID))
                     .findFirst()
                     .orElse(null);
             if (found != null){
@@ -95,14 +95,14 @@ class UserFrame extends JFrame {
             if (character != null){
                 user.addCharacter(character);
             }
-            System.out.println(user.characters);
+            System.out.println(user.getCharacters());
         });
 
         //View Character
         viewCharacter.addActionListener(e -> {
             String characterID = getCharacterID();
-            Character found = user.characters.stream()
-                    .filter(c -> c.characterID.equals(characterID))
+            Character found = user.getCharacters().stream()
+                    .filter(c -> c.getCharacterID().equals(characterID))
                     .findFirst()
                     .orElse(null);
             if (found != null) {

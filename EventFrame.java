@@ -27,17 +27,17 @@ class EventFrame extends JFrame {
         gbc.gridy = 0;
         panel.add(new JLabel("World Time"), gbc);
         gbc.gridx = 1;
-        panel.add(new JLabel(this.event.startTime), gbc);
+        panel.add(new JLabel(this.event.getStartTime()), gbc);
         gbc.gridx = 0;
         gbc.gridy = 1;
         panel.add(new JLabel("Realm Name"), gbc);
         gbc.gridx = 1;
-        panel.add(new JLabel(this.event.realm.name), gbc);
+        panel.add(new JLabel(this.event.getRealm().getName()), gbc);
         gbc.gridy = 2;
         gbc.gridx = 0;
         panel.add(new JLabel("Realm ID"), gbc);
         gbc.gridx = 1;
-        panel.add(new JLabel(this.event.realm.realmID), gbc);
+        panel.add(new JLabel(this.event.getRealm().getRealmID()), gbc);
         add(panel);
     }
 }

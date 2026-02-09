@@ -9,7 +9,7 @@ class CampaignFrame extends JFrame {
     String getEventID(){
         DefaultListModel<QuestEvent> eventModel = new DefaultListModel<>();
         JList<QuestEvent> eventList = new JList<>(eventModel);
-        for (QuestEvent c : campaign.questEvents) {
+        for (QuestEvent c : campaign.getQuestEvents()) {
             eventModel.addElement(c);
         }
         eventList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -63,8 +63,8 @@ class CampaignFrame extends JFrame {
         //Select Campaign Frame
         viewEvent.addActionListener(e ->{
             String eventID = getEventID();
-            QuestEvent found = campaign.questEvents.stream()
-                    .filter(c -> c.eventID.equals(eventID))
+            QuestEvent found = campaign.getQuestEvents().stream()
+                    .filter(c -> c.getEventID().equals(eventID))
                     .findFirst()
                     .orElse(null);
             if (found != null){

@@ -25,12 +25,12 @@ class ItemFrame extends JFrame {
         gbc.gridy = 0;
         panel.add(new JLabel("Name"), gbc);
         gbc.gridx = 1;
-        panel.add(new JLabel(item.name), gbc);
+        panel.add(new JLabel(item.getItemName()), gbc);
         gbc.gridx = 0;
         gbc.gridy = 1;
         panel.add(new JLabel("Rarity"), gbc);
         gbc.gridx = 1;
-        panel.add(new JLabel(item.rarity), gbc);
+        panel.add(new JLabel(item.getItemRarity()), gbc);
         add(panel);
     }
 }

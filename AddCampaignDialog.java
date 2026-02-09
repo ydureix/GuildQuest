@@ -18,7 +18,7 @@ class AddCampaignDialog extends JDialog {
         submit.addActionListener(e -> {
             Random rand = new Random();
             int randomNum = rand.nextInt(100000);
-            campaign = new Campaign(String.valueOf(randomNum), campaignName.getText(), user);
+            campaign = userCreate.createCampaign(String.valueOf(randomNum), campaignName.getText(), user);
             dispose();
         });
 

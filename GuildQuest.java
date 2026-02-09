@@ -22,14 +22,21 @@ class Inventory{
 }
 
 class Item{
-    String name;
-    String rarity;
+    private String name;
+    private String rarity;
 
     Item(String name, String rarity){
         this.name = name;
         this.rarity = rarity;
     }
 
+    public String getItemName(){
+        return name;
+    }
+
+    public String getItemRarity(){
+        return rarity;
+    }
     @Override
     public String toString(){
         return this.name;
@@ -38,12 +45,12 @@ class Item{
 
 
 class Character{
-    String characterID;
-    String name;
-    String characterClass;
-    int level;
-    Inventory inventory;
-    String description;
+    private String characterID;
+    private String name;
+    private String characterClass;
+    private int level;
+    private Inventory inventory;
+    private String description;
 
     Character(String characterID, String name, String characterClass, int level){
         this.characterID = characterID;
@@ -53,6 +60,30 @@ class Character{
         Random rand = new Random();
         int randomNum = rand.nextInt(100000);
         inventory = new Inventory(String.valueOf(randomNum), this);
+    }
+
+    public String getCharacterID(){
+        return characterID;
+    }
+
+    public String getCharacterName(){
+        return name;
+    }
+
+    public String getCharacterClass(){
+        return characterClass;
+    }
+
+    public int getLevel(){
+        return level;
+    }
+
+    public Inventory getInventory(){
+        return inventory;
+    }
+
+    public String getDescription(){
+        return description;
     }
 
     @Override
@@ -92,16 +123,32 @@ class WorldClock{
 }
 
 class Realm{
-    String realmID;
-    String name;
-    String description;
-    String mapId;
-    LocalTimeRule localTimeRule;
+    private String realmID;
+    private String name;
+    private String description;
+    private String mapId;
+    private LocalTimeRule localTimeRule;
 
     Realm(String realmID, String name){
         this.realmID = realmID;
         this.name = name;
     }
+
+    public String getRealmID(){
+        return realmID;
+    }
+    public String getName(){
+        return name;
+    }
+    public String getDescription(){
+        return description;
+    }
+    public String getMapId(){
+        return mapId;
+    }
+    public LocalTimeRule getLocalTimeRule(){
+        return localTimeRule;
+    };
 }
 
 class LocalTimeRule{
@@ -117,18 +164,41 @@ class LocalTimeRule{
 }
 
 class QuestEvent{
-    String eventID;
-    String startTime;
-    String endTime;
-    String name;
-    Realm realm;
-    String description;
+    private String eventID;
+    private String startTime;
+    private String endTime;
+    private String name;
+    private Realm realm;
+    private String description;
     QuestEvent(String eventID, String name, Realm realm){
         WorldClock clock = WorldClock.getInstance();
         this.eventID = eventID;
         this.name = name;
         this.startTime = clock.getCurrentTime();
         this.realm = realm;
+    }
+
+    public String getEventID(){
+        return eventID;
+    };
+    public String getStartTime(){
+        return startTime;
+    };
+    public String getEndTime(){
+        return endTime;
+    };
+    public String getName(){
+        return name;
+    };
+    public Realm getRealm(){
+        return realm;
+    };
+    public String getDescription(){
+        return description;
+    };
+
+    public void setEventName(String name){
+        this.name = name;
     }
 
     @Override
@@ -140,12 +210,22 @@ class QuestEvent{
 }
 
 
+class userCreate{
+    public static Character createCharacter(String characterID, String name, String characterClass, int level){
+        return new Character(characterID, name, characterClass, level);
+    }
+
+    public static Campaign createCampaign(String campaignID, String name, User host){
+        return new Campaign(campaignID, name, host);
+    }
+}
+
 class Campaign {
-    String campaignID;
-    String name;
-    User host;
-    ArrayList<QuestEvent> questEvents;
-    LocalDateTime createdAt;
+    private String campaignID;
+    private String name;
+    private User host;
+    private ArrayList<QuestEvent> questEvents;
+    private LocalDateTime createdAt;
 
 
     Campaign(String campaignID, String name, User host) {
@@ -154,6 +234,26 @@ class Campaign {
         this.host = host;
         this.questEvents = new ArrayList<QuestEvent>();
         createdAt = LocalDateTime.now();
+    }
+
+    public String getCampaignID(){
+        return campaignID;
+    };
+    public String getName(){
+        return name;
+    };
+    public User getHost(){
+        return host;
+    };
+    public ArrayList<QuestEvent> getQuestEvents(){
+        return questEvents;
+    };
+    public LocalDateTime getCreatedAt(){
+        return createdAt;
+    };
+
+    public void setCampaignName(String name){
+        this.name = name;
     }
 
     @Override
@@ -166,17 +266,17 @@ class Campaign {
     }
 
     void deleteQuestEvent(String eventID){
-        this.questEvents.removeIf(e -> e.eventID.equals(eventID));
+        this.questEvents.removeIf(e -> e.getEventID().equals(eventID));
     }
 
     void updateEvent(String eventID, String newEventName){
         QuestEvent found = questEvents.stream()
-                .filter(e -> e.eventID.equals(eventID))
+                .filter(e -> e.getEventID().equals(eventID))
                 .findFirst()
                 .orElse(null);
 
         if (found != null) {
-            found.name = newEventName;
+            found.setEventName(newEventName);
         }
 
     }
@@ -186,12 +286,12 @@ class Campaign {
 
 
 class User{
-    int userID;
-    String username;
-    ArrayList<Campaign> campaigns;
-    ArrayList<Character> characters;
-    String email;
-    String password;
+    private int userID;
+    private String username;
+    private ArrayList<Campaign> campaigns;
+    private ArrayList<Character> characters;
+    private String email;
+    private String password;
     User(int userID, String username){
         super();
         this.userID = userID;
@@ -205,19 +305,32 @@ class User{
     }
 
     void removeCampaign(String campaignID){
-        this.campaigns.removeIf(c -> c.campaignID.equals(campaignID));
+        this.campaigns.removeIf(c -> c.getCampaignID().equals(campaignID));
     }
 
     void updateCampaign(String campaignID, String newCampaignName){
         Campaign found = campaigns.stream()
-                .filter(c -> c.campaignID.equals(campaignID))
+                .filter(c -> c.getCampaignID().equals(campaignID))
                 .findFirst()
                 .orElse(null);
 
         if (found != null) {
-            found.name = newCampaignName;
+            found.setCampaignName(newCampaignName);
         }
 
+    }
+
+    public int getUserID(){
+        return userID;
+    }
+    public String getUsername(){
+        return username;
+    }
+    public ArrayList<Campaign> getCampaigns(){
+        return campaigns;
+    };
+    public ArrayList<Character> getCharacters(){
+        return characters;
     }
 
     void addCharacter(Character character){

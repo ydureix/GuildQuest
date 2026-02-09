@@ -34,7 +34,7 @@ class SelectCharacter extends JDialog {
 
     String getCharacterID() {
         if (character != null) {
-            return character.characterID;
+            return character.getCharacterID();
         } else {
             return null;
         }
