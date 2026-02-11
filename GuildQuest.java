@@ -1,6 +1,8 @@
-import java.time.LocalDate;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 class Inventory{
@@ -231,8 +233,8 @@ class Campaign {
     public User getHost(){
         return host;
     };
-    public ArrayList<QuestEvent> getQuestEvents(){
-        return questEvents;
+    public List<QuestEvent> getQuestEvents(){
+        return Collections.unmodifiableList(questEvents);
     };
     public LocalDateTime getCreatedAt(){
         return createdAt;
@@ -312,11 +314,11 @@ class User{
     public String getUsername(){
         return username;
     }
-    public ArrayList<Campaign> getCampaigns(){
-        return campaigns;
+    public List<Campaign> getCampaigns(){
+        return Collections.unmodifiableList(campaigns);
     };
-    public ArrayList<Character> getCharacters(){
-        return characters;
+    public List<Character> getCharacters(){
+        return Collections.unmodifiableList(characters);
     }
 
     void addCharacter(Character character){
