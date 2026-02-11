@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Random;
@@ -94,26 +95,15 @@ class Character{
 
 //World Clock Singleton
 class WorldClock{
-    private int days;
-    private int hours;
-    private int minutes;
 
     private static WorldClock INSTANCE = new WorldClock();
 
     private WorldClock(){
-        updateCurrentTime();
     }
 
-    void updateCurrentTime(){
-        LocalDateTime now = LocalDateTime.now();
-        this.days = now.getDayOfMonth();
-        this.hours = now.getHour();
-        this.minutes = now.getMinute();
-    }
 
-    String getCurrentTime(){
-        updateCurrentTime();
-        return String.format("Day: %s Hours: %d Minutes: %d", this.days, this.hours, this.minutes);
+    LocalDateTime getCurrentTime(){
+        return LocalDateTime.now();
     }
 
     public static WorldClock getInstance(){
@@ -161,8 +151,8 @@ class Realm{
 
 class QuestEvent{
     private String eventID;
-    private String startTime;
-    private String endTime;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
     private String name;
     private Realm realm;
     private String description;
@@ -177,10 +167,10 @@ class QuestEvent{
     public String getEventID(){
         return eventID;
     };
-    public String getStartTime(){
+    public LocalDateTime getStartTime(){
         return startTime;
     };
-    public String getEndTime(){
+    public LocalDateTime getEndTime(){
         return endTime;
     };
     public String getName(){

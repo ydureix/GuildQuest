@@ -1,6 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
-
+import java.time.LocalDateTime;
 
 
 class EventFrame extends JFrame {
@@ -27,7 +27,8 @@ class EventFrame extends JFrame {
         gbc.gridy = 0;
         panel.add(new JLabel("World Time"), gbc);
         gbc.gridx = 1;
-        panel.add(new JLabel(this.event.getStartTime()), gbc);
+        LocalDateTime startTime = this.event.getStartTime();
+        panel.add(new JLabel(String.format("Day: %s Hours: %d Minutes: %d", startTime.getDayOfMonth(), startTime.getHour(), startTime.getMinute())), gbc);
         gbc.gridx = 0;
         gbc.gridy = 1;
         panel.add(new JLabel("Realm Name"), gbc);
