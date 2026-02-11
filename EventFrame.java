@@ -28,7 +28,7 @@ class EventFrame extends JFrame {
         panel.add(new JLabel("World Time"), gbc);
         gbc.gridx = 1;
         LocalDateTime startTime = this.event.getStartTime();
-        panel.add(new JLabel(String.format("Day: %s Hours: %d Minutes: %d", startTime.getDayOfMonth(), startTime.getHour(), startTime.getMinute())), gbc);
+        panel.add(new JLabel(String.format("Day:%s %d:%d", startTime.getDayOfMonth(), startTime.getHour(), startTime.getMinute())), gbc);
         gbc.gridx = 0;
         gbc.gridy = 1;
         panel.add(new JLabel("Realm Name"), gbc);
@@ -43,7 +43,8 @@ class EventFrame extends JFrame {
         gbc.gridy = 3;
         panel.add(new JLabel("Realm Local Time Rule"),gbc);
         gbc.gridx = 1;
-        panel.add(new JLabel(this.event.getRealm().getLocalTime()),gbc);
+        LocalDateTime localTime = this.event.getRealm().getLocalTime();
+        panel.add(new JLabel(String.format("Day:%s %d:%d", localTime.getDayOfMonth(), localTime.getHour(), localTime.getMinute())),gbc);
         add(panel);
     }
 }

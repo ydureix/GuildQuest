@@ -32,7 +32,7 @@ class AddEventDialog extends JDialog {
         submit.addActionListener(e -> {
             Random rand = new Random();
             int randomNum = rand.nextInt(100000);
-            event = new QuestEvent(String.valueOf(randomNum), eventName.getText(), new Realm(String.valueOf(randomNum), eventName.getText(), Integer.parseInt(dayField.getText()), Integer.parseInt(hoursField.getText()),Integer.parseInt(minutesField.getText())));
+            event = new QuestEvent(String.valueOf(randomNum), eventName.getText(), new Realm(String.valueOf(randomNum), eventName.getText(), new OffsetTimeStrategy(Integer.parseInt(dayField.getText()), Integer.parseInt(hoursField.getText()),Integer.parseInt(minutesField.getText()))));
             dispose();
         });
 

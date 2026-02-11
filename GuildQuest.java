@@ -1,4 +1,5 @@
 
+import java.sql.Time;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -114,22 +115,49 @@ class WorldClock{
 
 }
 
+interface TimeStrategy {
+    LocalDateTime computeLocalTime(LocalDateTime baseTime);
+}
+
+class OffsetTimeStrategy implements TimeStrategy {
+
+    private int days;
+    private int hours;
+    private int minutes;
+
+    public OffsetTimeStrategy(int d, int h, int m) {
+        this.days = d;
+        this.hours = h;
+        this.minutes = m;
+    }
+
+    public LocalDateTime computeLocalTime(LocalDateTime baseTime) {
+        return baseTime
+                .plusDays(days)
+                .plusHours(hours)
+                .plusMinutes(minutes);
+    }
+}
+
 class Realm{
     private String realmID;
     private String name;
     private String description;
     private String mapId;
-    private int offsetDays;
-    private int offsetHours;
-    private int offsetMinutes;
+    private TimeStrategy timeStrategy;
 
 
-    Realm(String realmID, String name, int offsetDays, int offsetHours, int offsetMinutes){
+    Realm(String realmID, String name, TimeStrategy timeStrategy){
         this.realmID = realmID;
         this.name = name;
-        this.offsetDays = offsetDays;
-        this.offsetHours = offsetHours;
-        this.offsetMinutes = offsetMinutes;
+        this.timeStrategy = timeStrategy;
+    }
+
+    public LocalDateTime getLocalTime() {
+        LocalDateTime worldTime =
+                WorldClock.getInstance().getCurrentTime();
+
+        return timeStrategy.computeLocalTime(worldTime);
     }
 
     public String getRealmID(){
@@ -145,9 +173,6 @@ class Realm{
         return mapId;
     }
 
-    public String getLocalTime(){
-        return String.format("OffsetDays: %d, OffsetHours: %d, OffsetMinutes: %d", this.offsetDays, this.offsetHours, this.offsetMinutes);
-    }
 }
 
 
